@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đặt Vé Trực Tuyến - UTC Cinema</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/booking.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/utc-logo.png" alt="UTC Logo" class="logo-img">
+        <span>UTC <span>CINEMA</span></span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Trang chủ</a>
+        <a href="movies.html" class="nav-link"><i class="fas fa-film"></i> Phim</a>
+        <a href="schedule.html" class="nav-link"><i class="fas fa-calendar-alt"></i> Lịch chiếu</a>
+        <a href="booking.html" class="nav-link active"><i class="fas fa-ticket-alt"></i> Đặt vé</a>
+        <a href="promotions.html" class="nav-link"><i class="fas fa-tags"></i> Ưu đãi</a>
+        <a href="contact.html" class="nav-link"><i class="fas fa-headset"></i> Liên hệ</a>
+      </nav>
+      <div class="header-actions">
+        <div id="user-header-box">
+          <button class="btn btn-secondary btn-sm open-auth-modal"><i class="fas fa-user"></i> Đăng nhập</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Booking Stepper & Container -->
+  <main class="booking-page-wrap">
+    <div class="container">
+
+      <!-- Stepper Indicator -->
+      <div class="booking-stepper">
+        <div class="step-indicator active" data-step="1">
+          <div class="step-circle">1</div>
+          <div class="step-label">Suất Chiếu</div>
+        </div>
+        <div class="step-indicator" data-step="2">
+          <div class="step-circle">2</div>
+          <div class="step-label">Chọn Ghế</div>
+        </div>
+        <div class="step-indicator" data-step="3">
+          <div class="step-circle">3</div>
+          <div class="step-label">Bắp Nước</div>
+        </div>
+        <div class="step-indicator" data-step="4">
+          <div class="step-circle">4</div>
+          <div class="step-label">Thanh Toán</div>
+        </div>
+      </div>
+
+      <!-- Main Booking Layout -->
+      <div class="booking-layout">
+        
+        <!-- Left: Dynamic Steps Content -->
+        <div class="booking-main-card">
+          
+          <!-- STEP 1: CHỌN PHIM, RẠP, NGÀY VÀ GIỜ CHIẾU -->
+          <div id="step-content-1">
+            <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 20px; color: #fff;">
+              <i class="fas fa-calendar-check" style="color: var(--primary);"></i> Bước 1: Chọn Phim & Suất Chiếu
+            </h2>
+
+            <div class="selection-grid">
+              <div class="form-group">
+                <label class="form-label">Chọn Phim</label>
+                <select id="select-movie" class="form-select"></select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Chọn Cụm Rạp</label>
+                <select id="select-cinema" class="form-select"></select>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 24px;">
+              <label class="form-label">Chọn Ngày Chiếu</label>
+              <div class="date-selector-pills" id="date-pills"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Chọn Giờ Chiếu (Định dạng tiêu chuẩn)</label>
+              <div class="showtime-grid" id="showtime-buttons"></div>
+            </div>
+          </div>
+
+          <!-- STEP 2: SƠ ĐỒ CHỌN GHẾ NGỒI -->
+          <div id="step-content-2" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+              <h2 style="font-size: 1.4rem; font-weight: 800; color: #fff;">
+                <i class="fas fa-couch" style="color: var(--primary);"></i> Bước 2: Sơ Đồ Chọn Ghế Ngồi
+              </h2>
+            </div>
+
+            <div class="screen-area">
+              <div class="screen-bar"></div>
+              <span class="screen-text">MÀN HÌNH CHIẾU PHIM (SCREEN)</span>
+            </div>
+
+            <!-- Seat Map Interactive -->
+            <div class="seat-map-container" id="seat-map"></div>
+
+            <!-- Seat Legend -->
+            <div class="seat-legend">
+              <div class="legend-item">
+                <div class="legend-color" style="background: #334155;"></div>
+                <span>Ghế thường (85k)</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color" style="background: var(--accent-gold);"></div>
+                <span>Ghế VIP (110k)</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color" style="background: var(--accent-pink);"></div>
+                <span>Ghế đôi Sweetbox (230k)</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color" style="background: var(--primary);"></div>
+                <span>Đang chọn</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color" style="background: #1e293b; opacity: 0.5;"></div>
+                <span>Đã có người</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 3: CHỌN COMBO BẮP NƯỚC -->
+          <div id="step-content-3" style="display: none;">
+            <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 20px; color: #fff;">
+              <i class="fas fa-cookie-bite" style="color: var(--primary);"></i> Bước 3: Combo Bắp Nước & Đồ Ăn Kèm
+            </h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px;">
+              Thưởng thức bắp rang bơ giòn rụm và nước ngọt mát lạnh để trọn vẹn từng khoảnh khắc phim.
+            </p>
+
+            <div class="combos-list" id="combos-container"></div>
+          </div>
+
+          <!-- STEP 4: PHƯƠNG THỨC THANH TOÁN -->
+          <div id="step-content-4" style="display: none;">
+            <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 20px; color: #fff;">
+              <i class="fas fa-credit-card" style="color: var(--primary);"></i> Bước 4: Phương Thức Thanh Toán
+            </h2>
+
+            <div class="payment-methods-grid">
+              <div class="pay-card active" data-method="momo">
+                <i class="fas fa-wallet" style="color: #ec4899; font-size: 1.5rem;"></i>
+                <div>
+                  <div>Ví điện tử MoMo</div>
+                  <small style="color: var(--text-muted);">Quét mã QR thanh toán nhanh</small>
+                </div>
+              </div>
+              <div class="pay-card" data-method="vnpay">
+                <i class="fas fa-qrcode" style="color: #38bdf8; font-size: 1.5rem;"></i>
+                <div>
+                  <div>Cổng VNPAY-QR</div>
+                  <small style="color: var(--text-muted);">Ứng dụng ngân hàng số</small>
+                </div>
+              </div>
+              <div class="pay-card" data-method="card">
+                <i class="fas fa-credit-card" style="color: var(--accent-gold); font-size: 1.5rem;"></i>
+                <div>
+                  <div>Thẻ Visa / MasterCard</div>
+                  <small style="color: var(--text-muted);">Thẻ thanh toán quốc tế</small>
+                </div>
+              </div>
+              <div class="pay-card" data-method="counter">
+                <i class="fas fa-store" style="color: #10b981; font-size: 1.5rem;"></i>
+                <div>
+                  <div>Thanh toán tại quầy</div>
+                  <small style="color: var(--text-muted);">Giữ vé đến trước giờ chiếu 30p</small>
+                </div>
+              </div>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-light); padding: 18px; border-radius: var(--radius-md); font-size: 0.88rem; color: var(--text-secondary);">
+              <i class="fas fa-shield-alt" style="color: #10b981;"></i> Giao dịch được bảo mật tuyệt đối với chứng chỉ mã hoá SSL 256-bit. Sau khi xác nhận, vé điện tử và mã QR sẽ được gửi tức thì.
+            </div>
+          </div>
+
+          <!-- Bottom Action Buttons -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--border-light);">
+            <button type="button" class="btn btn-secondary" id="btn-prev-step" style="visibility: hidden;">
+              <i class="fas fa-arrow-left"></i> Quay lại
+            </button>
+            <button type="button" class="btn btn-primary" id="btn-next-step">
+              Tiếp tục <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Real-time Order Summary Sidebar -->
+        <aside class="booking-sidebar">
+          
+          <!-- Seat Lock Countdown Timer -->
+          <div class="timer-box">
+            <span class="timer-text"><i class="fas fa-clock"></i> Thời gian giữ ghế</span>
+            <span class="timer-digits" id="seat-timer-digits">05:00</span>
+          </div>
+
+          <div class="sidebar-movie-header">
+            <img id="side-poster" src="assets/images/wild-robot.jpg" alt="Poster" class="sidebar-poster">
+            <div class="sidebar-movie-info">
+              <h4 id="side-movie-title">Tên Phim</h4>
+              <p id="side-cinema-name"><i class="fas fa-map-marker-alt"></i> Tên Rạp</p>
+              <p id="side-datetime"><i class="fas fa-clock"></i> Suất chiếu</p>
+            </div>
+          </div>
+
+          <div class="summary-rows">
+            <div class="summary-row">
+              <span>Phòng chiếu</span>
+              <span>Rạp 02 (Dolby Atmos)</span>
+            </div>
+            <div class="summary-row">
+              <span>Ghế đã chọn</span>
+              <span id="side-seats" style="color: var(--accent-gold);">Chưa chọn</span>
+            </div>
+            <div class="summary-row">
+              <span>Bắp & Nước</span>
+              <span id="side-combos">Không</span>
+            </div>
+            <div class="summary-row">
+              <span>Tạm tính</span>
+              <span id="side-subtotal">0đ</span>
+            </div>
+            <div class="summary-row">
+              <span>Giảm giá</span>
+              <span id="side-discount" style="color: #10b981;">0đ</span>
+            </div>
+          </div>
+
+          <!-- Voucher Apply -->
+          <div class="voucher-input-group">
+            <input type="text" id="voucher-code" placeholder="Mã giảm giá (ví dụ: CINE20)">
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-apply-voucher">Áp dụng</button>
+          </div>
+
+          <!-- Total Calculation -->
+          <div class="total-box">
+            <div class="total-row">
+              <span class="total-label">Tổng thanh toán:</span>
+              <span class="total-amount" id="side-total">0đ</span>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= TICKET SUCCESS MODAL ================= -->
+  <div class="modal-backdrop" id="ticket-success-modal">
+    <div class="modal-content" style="max-width: 520px; background: transparent; border: none; box-shadow: none;">
+      <button class="modal-close-btn" onclick="window.location.href='index.html'">&times;</button>
+      <div id="digital-ticket-render"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/booking.js"></script>
+</body>
+</html>

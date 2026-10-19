@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vé Của Tôi - UTC Cinema</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .ticket-history-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 24px;
+      display: grid;
+      grid-template-columns: 160px 1fr 220px;
+      gap: 24px;
+      align-items: center;
+      padding: 20px;
+    }
+    .ticket-history-poster {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+    }
+    .ticket-qr-box {
+      background: #fff;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    @media (max-width: 860px) {
+      .ticket-history-card {
+        grid-template-columns: 1fr;
+      }
+      .ticket-history-poster {
+        max-width: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/utc-logo.png" alt="UTC Logo" class="logo-img">
+        <span>UTC <span>CINEMA</span></span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Trang chủ</a>
+        <a href="movies.html" class="nav-link"><i class="fas fa-film"></i> Phim</a>
+        <a href="schedule.html" class="nav-link"><i class="fas fa-calendar-alt"></i> Lịch chiếu</a>
+        <a href="booking.html" class="nav-link"><i class="fas fa-ticket-alt"></i> Đặt vé</a>
+        <a href="promotions.html" class="nav-link"><i class="fas fa-tags"></i> Ưu đãi</a>
+        <a href="contact.html" class="nav-link"><i class="fas fa-headset"></i> Liên hệ</a>
+      </nav>
+      <div class="header-actions">
+        <div id="user-header-box">
+          <button class="btn btn-secondary btn-sm open-auth-modal"><i class="fas fa-user"></i> Đăng nhập</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section style="background: var(--bg-primary); padding: 40px 0; border-bottom: 1px solid var(--border-light);">
+    <div class="container">
+      <h1 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 8px;">QUẢN LÝ VÉ CỦA TÔI</h1>
+      <p style="color: var(--text-muted);">Lịch sử các đơn đặt vé điện tử và mã QR vào phòng chiếu</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div id="tickets-list">
+        <!-- Render động từ LocalStorage -->
+      </div>
+      <div id="empty-tickets" style="display: none; text-align: center; padding: 60px 0;">
+        <i class="fas fa-ticket-alt" style="font-size: 3.5rem; color: var(--text-muted); margin-bottom: 16px; display: block;"></i>
+        <h3 style="font-size: 1.4rem; color: #fff; margin-bottom: 8px;">Bạn chưa có vé xem phim nào!</h3>
+        <p style="color: var(--text-muted); margin-bottom: 24px;">Hãy chọn phim yêu thích và đặt vé trực tuyến ngay bây giờ.</p>
+        <a href="movies.html" class="btn btn-primary"><i class="fas fa-film"></i> Khám phá phim ngay</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-bottom" style="border: none;">
+      <p>&copy; 2026 UTC Cinema - Trường Đại học Giao thông Vận tải (University of Transport and Communications).</p>
+      <a href="index.html" class="btn btn-secondary btn-sm">Quay lại trang chủ</a>
+    </div>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const ticketsContainer = document.getElementById('tickets-list');
+      const emptyBox = document.getElementById('empty-tickets');
+      const tickets = CineVerseUtil.storage.getTickets();
+
+      if (!tickets || tickets.length === 0) {
+        emptyBox.style.display = 'block';
+        ticketsContainer.innerHTML = '';
+      } else {
+        emptyBox.style.display = 'none';
+        ticketsContainer.innerHTML = tickets.map(t => `
+          <div class="ticket-history-card">
+            <img src="${t.poster || 'assets/images/wild-robot.jpg'}" alt="${t.movieTitle}" class="ticket-history-poster">
+            <div>
+              <span class="promo-tag" style="margin-bottom: 8px;">Mã đặt vé: ${t.bookingCode}</span>
+              <h3 style="font-size: 1.35rem; color: #fff; margin-bottom: 8px;">${t.movieTitle}</h3>
+              <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 4px;">
+                <i class="fas fa-map-marker-alt" style="color: var(--primary);"></i> ${t.cinemaName} • ${t.room}
+              </p>
+              <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 8px;">
+                <i class="fas fa-clock" style="color: var(--accent-gold);"></i> Suất chiếu: <strong style="color: #fff;">${t.time} (${t.date})</strong>
+              </p>
+              <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 12px;">
+                <i class="fas fa-couch" style="color: var(--accent-pink);"></i> Ghế ngồi: <strong style="color: var(--accent-gold);">${t.seats}</strong>
+              </p>
+              <div style="font-size: 0.95rem; font-weight: 700; color: #10b981;">
+                Tổng thanh toán: ${CineVerseUtil.formatCurrency(t.totalPrice)} (${t.paymentMethod})
+              </div>
+            </div>
+            <div class="ticket-qr-box">
+              <svg width="100" height="100" viewBox="0 0 100 100" fill="#000">
+                <rect width="100" height="100" fill="#fff" />
+                <rect x="10" y="10" width="25" height="25" fill="#000" />
+                <rect x="15" y="15" width="15" height="15" fill="#fff" />
+                <rect x="18" y="18" width="9" height="9" fill="#000" />
+                <rect x="65" y="10" width="25" height="25" fill="#000" />
+                <rect x="70" y="15" width="15" height="15" fill="#fff" />
+                <rect x="73" y="18" width="9" height="9" fill="#000" />
+                <rect x="10" y="65" width="25" height="25" fill="#000" />
+                <rect x="15" y="70" width="15" height="15" fill="#fff" />
+                <rect x="18" y="73" width="9" height="9" fill="#000" />
+                <rect x="40" y="20" width="15" height="10" fill="#000" />
+                <rect x="45" y="55" width="15" height="15" fill="#000" />
+                <rect x="65" y="65" width="20" height="20" fill="#000" />
+              </svg>
+              <span style="font-family: monospace; font-size: 0.8rem; font-weight: 800; color: #000; margin-top: 4px;">${t.bookingCode}</span>
+              <button class="btn btn-secondary btn-sm" style="margin-top: 10px; width: 100%; color: #000; border-color: #cbd5e1;" onclick="window.print()">
+                <i class="fas fa-print"></i> In vé
+              </button>
+            </div>
+          </div>
+        `).join('');
+      }
+    });
+  </script>
+</body>
+</html>

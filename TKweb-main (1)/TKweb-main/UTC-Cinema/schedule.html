@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lịch Chiếu Phim - UTC Cinema</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .schedule-movie-row {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 20px;
+      align-items: center;
+      transition: border-color 0.25s ease;
+    }
+    .schedule-movie-row:hover {
+      border-color: rgba(229, 9, 20, 0.4);
+    }
+    .schedule-poster {
+      width: 140px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+    }
+    .schedule-times-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .schedule-time-chip {
+      padding: 8px 16px;
+      background: var(--bg-dark);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.92rem;
+      transition: all 0.2s ease;
+    }
+    .schedule-time-chip:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px var(--primary-glow);
+    }
+    @media (max-width: 680px) {
+      .schedule-movie-row {
+        grid-template-columns: 1fr;
+      }
+      .schedule-poster {
+        width: 100%;
+        height: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/utc-logo.png" alt="UTC Logo" class="logo-img">
+        <span>UTC <span>CINEMA</span></span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Trang chủ</a>
+        <a href="movies.html" class="nav-link"><i class="fas fa-film"></i> Phim</a>
+        <a href="schedule.html" class="nav-link active"><i class="fas fa-calendar-alt"></i> Lịch chiếu</a>
+        <a href="booking.html" class="nav-link"><i class="fas fa-ticket-alt"></i> Đặt vé</a>
+        <a href="promotions.html" class="nav-link"><i class="fas fa-tags"></i> Ưu đãi</a>
+        <a href="contact.html" class="nav-link"><i class="fas fa-headset"></i> Liên hệ</a>
+      </nav>
+      <div class="header-actions">
+        <div id="user-header-box">
+          <button class="btn btn-secondary btn-sm open-auth-modal"><i class="fas fa-user"></i> Đăng nhập</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section style="background: var(--bg-primary); padding: 40px 0; border-bottom: 1px solid var(--border-light);">
+    <div class="container">
+      <h1 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 8px;">LỊCH CHIẾU PHIM TOÀN HỆ THỐNG</h1>
+      <p style="color: var(--text-muted);">Xem lịch chiếu chi tiết theo từng cụm rạp và khung giờ chiếu trong tuần</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      
+      <!-- Selection Bar -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 32px; background: var(--bg-secondary); padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border-light);">
+        <div>
+          <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 6px; text-transform: uppercase;">
+            <i class="fas fa-map-marker-alt" style="color: var(--primary);"></i> Chọn Rạp Chiếu
+          </label>
+          <select id="schedule-cinema-select" class="form-select"></select>
+        </div>
+        <div>
+          <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 6px; text-transform: uppercase;">
+            <i class="fas fa-calendar-day" style="color: var(--primary);"></i> Chọn Ngày Chiếu
+          </label>
+          <select id="schedule-date-select" class="form-select"></select>
+        </div>
+      </div>
+
+      <!-- Schedule List -->
+      <div id="schedule-movies-list">
+        <!-- Render động -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-bottom" style="border: none;">
+      <p>&copy; 2026 UTC Cinema - Trường Đại học Giao thông Vận tải (University of Transport and Communications).</p>
+      <a href="index.html" class="btn btn-secondary btn-sm">Quay lại trang chủ</a>
+    </div>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const cinemaSelect = document.getElementById('schedule-cinema-select');
+      const dateSelect = document.getElementById('schedule-date-select');
+      const scheduleList = document.getElementById('schedule-movies-list');
+
+      // Đổ rạp
+      cinemaSelect.innerHTML = CineVerseData.cinemas.map(c => `
+        <option value="${c.id}">${c.name} - ${c.city}</option>
+      `).join('');
+
+      // Đổ 7 ngày
+      const days = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+      const today = new Date();
+      let datesHtml = '';
+      for (let i = 0; i < 7; i++) {
+        const d = new Date();
+        d.setDate(today.getDate() + i);
+        const dateStr = d.toISOString().split('T')[0];
+        const dayLabel = i === 0 ? 'Hôm nay' : days[d.getDay()];
+        datesHtml += `<option value="${dateStr}">${dayLabel} (${d.getDate()}/${d.getMonth() + 1})</option>`;
+      }
+      dateSelect.innerHTML = datesHtml;
+
+      function renderSchedule() {
+        const currentCinemaId = cinemaSelect.value;
+        const currentDate = dateSelect.value;
+        const nowShowing = CineVerseData.movies.filter(m => m.status === 'now_showing');
+
+        scheduleList.innerHTML = nowShowing.map(m => {
+          const times = m.showtimes && m.showtimes.length > 0 
+            ? m.showtimes 
+            : ["10:15", "13:00", "15:45", "18:30", "21:15"];
+
+          return `
+            <div class="schedule-movie-row">
+              <img src="${m.poster}" alt="${m.title}" class="schedule-poster">
+              <div>
+                <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+                  <span class="age-tag">${m.ageRating}</span>
+                  <span class="format-pill">${m.format.join('/')}</span>
+                </div>
+                <h3 style="font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: 6px;">${m.title}</h3>
+                <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 12px;">
+                  ${m.genre.join(', ')} • ${m.duration} phút • Điểm đánh giá: <span style="color: var(--accent-gold); font-weight: 700;"><i class="fas fa-star"></i> ${m.rating}</span>
+                </p>
+
+                <div style="font-size: 0.82rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase;">
+                  Suất chiếu 2D Phụ đề tiếng Việt:
+                </div>
+                <div class="schedule-times-wrap">
+                  ${times.map(t => `
+                    <a href="booking.html?movie=${m.id}&cinema=${currentCinemaId}&time=${t}" class="schedule-time-chip">
+                      ${t}
+                    </a>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      cinemaSelect.addEventListener('change', renderSchedule);
+      dateSelect.addEventListener('change', renderSchedule);
+      renderSchedule();
+    });
+  </script>
+</body>
+</html>

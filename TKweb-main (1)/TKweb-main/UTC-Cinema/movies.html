@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh Sách Phim - UTC Cinema</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/utc-logo.png" alt="UTC Logo" class="logo-img">
+        <span>UTC <span>CINEMA</span></span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Trang chủ</a>
+        <a href="movies.html" class="nav-link active"><i class="fas fa-film"></i> Phim</a>
+        <a href="schedule.html" class="nav-link"><i class="fas fa-calendar-alt"></i> Lịch chiếu</a>
+        <a href="booking.html" class="nav-link"><i class="fas fa-ticket-alt"></i> Đặt vé</a>
+        <a href="promotions.html" class="nav-link"><i class="fas fa-tags"></i> Ưu đãi</a>
+        <a href="contact.html" class="nav-link"><i class="fas fa-headset"></i> Liên hệ</a>
+      </nav>
+      <div class="header-actions">
+        <div id="user-header-box">
+          <button class="btn btn-secondary btn-sm open-auth-modal"><i class="fas fa-user"></i> Đăng nhập</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section style="background: var(--bg-primary); padding: 40px 0; border-bottom: 1px solid var(--border-light);">
+    <div class="container">
+      <h1 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 8px;">DANH MỤC PHIM</h1>
+      <p style="color: var(--text-muted);">Khám phá kho phim chiếu rạp đỉnh cao với hình ảnh và âm thanh sống động</p>
+    </div>
+  </section>
+
+  <!-- Filters & Catalog -->
+  <section class="section">
+    <div class="container">
+      <div class="filter-bar">
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button class="filter-tab active" data-status="all">Tất cả phim</button>
+          <button class="filter-tab" data-status="now_showing">Đang chiếu</button>
+          <button class="filter-tab" data-status="coming_soon">Sắp chiếu</button>
+        </div>
+
+        <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+          <select id="genre-filter" class="form-select" style="padding: 8px 14px; font-size: 0.88rem; width: auto; background: var(--bg-dark);">
+            <option value="all">Mọi thể loại</option>
+            <option value="Hành động">Hành động</option>
+            <option value="Hoạt hình">Hoạt hình</option>
+            <option value="Khoa học viễn tưởng">Khoa học viễn tưởng</option>
+            <option value="Gia đình">Gia đình</option>
+            <option value="Tâm lý">Tâm lý</option>
+            <option value="Hài hước">Hài hước</option>
+            <option value="Kinh dị">Kinh dị</option>
+          </select>
+
+          <div class="search-input-wrap">
+            <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            <input type="text" id="movie-search-input" placeholder="Tìm kiếm tên phim...">
+          </div>
+        </div>
+      </div>
+
+      <!-- Movies Grid -->
+      <div class="movie-grid" id="catalog-movies-grid">
+        <!-- Movies render dynamically -->
+      </div>
+      <div id="no-results" style="display: none; text-align: center; padding: 60px 0; color: var(--text-muted);">
+        <i class="fas fa-film-slash" style="font-size: 3rem; margin-bottom: 16px; display: block;"></i>
+        <h3>Không tìm thấy phim phù hợp</h3>
+        <p>Vui lòng thử tìm kiếm bằng từ khoá hoặc bộ lọc khác.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-bottom" style="border: none;">
+      <p>&copy; 2026 UTC Cinema - Trường Đại học Giao thông Vận tải (University of Transport and Communications).</p>
+      <a href="index.html" class="btn btn-secondary btn-sm">Quay lại trang chủ</a>
+    </div>
+  </footer>
+
+  <!-- Trailer Modal -->
+  <div class="modal-backdrop" id="trailer-modal">
+    <div class="modal-content">
+      <button class="modal-close-btn" id="close-trailer-btn">&times;</button>
+      <div class="trailer-iframe-wrap">
+        <iframe id="trailer-iframe" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const grid = document.getElementById('catalog-movies-grid');
+      const noResults = document.getElementById('no-results');
+      const searchInput = document.getElementById('movie-search-input');
+      const genreSelect = document.getElementById('genre-filter');
+      const statusTabs = document.querySelectorAll('.filter-tab');
+
+      let currentStatus = 'all';
+      let currentGenre = 'all';
+      let currentQuery = '';
+
+      function renderMovies() {
+        let filtered = CineVerseData.movies;
+
+        if (currentStatus !== 'all') {
+          filtered = filtered.filter(m => m.status === currentStatus);
+        }
+
+        if (currentGenre !== 'all') {
+          filtered = filtered.filter(m => m.genre.includes(currentGenre));
+        }
+
+        if (currentQuery) {
+          const q = currentQuery.toLowerCase();
+          filtered = filtered.filter(m => 
+            m.title.toLowerCase().includes(q) || 
+            m.originalTitle.toLowerCase().includes(q) ||
+            m.director.toLowerCase().includes(q)
+          );
+        }
+
+        if (filtered.length === 0) {
+          grid.innerHTML = '';
+          noResults.style.display = 'block';
+        } else {
+          noResults.style.display = 'none';
+          grid.innerHTML = filtered.map(m => `
+            <div class="movie-card">
+              <div class="card-poster-wrap">
+                <div class="card-badges">
+                  <span class="age-tag">${m.ageRating}</span>
+                  <span class="format-pill">${m.format[0]}</span>
+                </div>
+                <img src="${m.poster}" alt="${m.title}" loading="lazy">
+                <div class="card-overlay">
+                  <a href="booking.html?movie=${m.id}" class="btn btn-primary btn-sm" style="width: 100%;">
+                    <i class="fas fa-ticket-alt"></i> Mua Vé
+                  </a>
+                  <button class="btn btn-secondary btn-sm" style="width: 100%;" data-trailer="${m.trailerId}">
+                    <i class="fas fa-play"></i> Trailer
+                  </button>
+                </div>
+              </div>
+              <div class="card-info">
+                <div>
+                  <div class="card-genres">${m.genre.join(', ')}</div>
+                  <a href="movie-detail.html?id=${m.id}" class="card-title">${m.title}</a>
+                </div>
+                <div class="card-footer">
+                  <div class="card-rating"><i class="fas fa-star"></i> ${m.rating}</div>
+                  <span><i class="fas fa-clock"></i> ${m.duration}'</span>
+                </div>
+              </div>
+            </div>
+          `).join('');
+        }
+      }
+
+      statusTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          statusTabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          currentStatus = tab.getAttribute('data-status');
+          renderMovies();
+        });
+      });
+
+      genreSelect.addEventListener('change', (e) => {
+        currentGenre = e.target.value;
+        renderMovies();
+      });
+
+      searchInput.addEventListener('input', (e) => {
+        currentQuery = e.target.value.trim();
+        renderMovies();
+      });
+
+      renderMovies();
+    });
+  </script>
+</body>
+</html>

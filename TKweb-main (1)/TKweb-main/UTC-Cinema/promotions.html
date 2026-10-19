@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khuyến Mãi & Ưu Đãi - UTC Cinema</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/utc-logo.png" alt="UTC Logo" class="logo-img">
+        <span>UTC <span>CINEMA</span></span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Trang chủ</a>
+        <a href="movies.html" class="nav-link"><i class="fas fa-film"></i> Phim</a>
+        <a href="schedule.html" class="nav-link"><i class="fas fa-calendar-alt"></i> Lịch chiếu</a>
+        <a href="booking.html" class="nav-link"><i class="fas fa-ticket-alt"></i> Đặt vé</a>
+        <a href="promotions.html" class="nav-link active"><i class="fas fa-tags"></i> Ưu đãi</a>
+        <a href="contact.html" class="nav-link"><i class="fas fa-headset"></i> Liên hệ</a>
+      </nav>
+      <div class="header-actions">
+        <div id="user-header-box">
+          <button class="btn btn-secondary btn-sm open-auth-modal"><i class="fas fa-user"></i> Đăng nhập</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section style="background: var(--bg-primary); padding: 40px 0; border-bottom: 1px solid var(--border-light);">
+    <div class="container">
+      <h1 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 8px;">CHƯƠNG TRÌNH KHUYẾN MÃI & QUÀ TẶNG</h1>
+      <p style="color: var(--text-muted);">Săn voucher giảm giá vé và ưu đãi đặc quyền dành riêng cho sinh viên Trường ĐH Giao thông Vận tải</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="promo-grid" id="promos-container">
+        <!-- Render động từ data.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-bottom" style="border: none;">
+      <p>&copy; 2026 UTC Cinema - Trường Đại học Giao thông Vận tải (University of Transport and Communications).</p>
+      <a href="index.html" class="btn btn-secondary btn-sm">Quay lại trang chủ</a>
+    </div>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('promos-container');
+      if (container) {
+        container.innerHTML = CineVerseData.promotions.map(p => `
+          <div class="promo-card">
+            <div>
+              <span class="promo-tag">${p.tag}</span>
+              <h3 class="promo-title">${p.title}</h3>
+              <p style="font-size: 0.8rem; color: var(--accent-cyan); margin-bottom: 8px;"><i class="fas fa-calendar-alt"></i> ${p.date}</p>
+              <p class="promo-desc">${p.description}</p>
+            </div>
+            <div class="promo-code-box">
+              <span class="promo-code-text">${p.code}</span>
+              <button class="copy-btn" onclick="copyPromoCode('${p.code}')">
+                <i class="fas fa-copy"></i> Sao chép mã
+              </button>
+            </div>
+          </div>
+        `).join('');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UTC Cinema - Rạp Chiếu Phim ĐH Giao Thông Vận Tải</title>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- ================= HEADER & NAVIGATION ================= -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/utc-logo.png" alt="UTC Logo" class="logo-img">
+        <span>UTC <span>CINEMA</span></span>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link active"><i class="fas fa-home"></i> Trang chủ</a>
+        <a href="movies.html" class="nav-link"><i class="fas fa-film"></i> Phim</a>
+        <a href="schedule.html" class="nav-link"><i class="fas fa-calendar-alt"></i> Lịch chiếu</a>
+        <a href="booking.html" class="nav-link"><i class="fas fa-ticket-alt"></i> Đặt vé</a>
+        <a href="promotions.html" class="nav-link"><i class="fas fa-tags"></i> Ưu đãi</a>
+        <a href="contact.html" class="nav-link"><i class="fas fa-headset"></i> Liên hệ</a>
+      </nav>
+
+      <div class="header-actions">
+        <div id="user-header-box">
+          <button class="btn btn-secondary btn-sm open-auth-modal">
+            <i class="fas fa-user"></i> Đăng nhập
+          </button>
+        </div>
+        <button class="mobile-toggle" aria-label="Toggle menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO BANNER SECTION ================= -->
+  <section class="hero-section" id="hero-banner" style="background: linear-gradient(to right, rgba(7, 9, 14, 0.98) 35%, rgba(7, 9, 14, 0.6) 80%), url('assets/images/avengers-endgame.jpg') center/cover no-repeat;">
+    <div class="hero-backdrop"></div>
+    <div class="container hero-content">
+      <span class="hero-badge"><i class="fas fa-fire"></i> Siêu phẩm chiếu lại bùng nổ phòng vé</span>
+      <h1 class="hero-title">Avengers: Hồi Kết (Phiên Bản Đặc Biệt)</h1>
+      <div class="hero-meta">
+        <span class="rating-badge"><i class="fas fa-star"></i> 9.9/10</span>
+        <span class="age-tag">T13 - Khán giả 13+</span>
+        <span><i class="fas fa-clock"></i> 183 phút</span>
+        <span><i class="fas fa-video"></i> IMAX 2D / 4DX / ScreenX</span>
+      </div>
+      <p class="hero-desc">
+        Trải nghiệm lại thiên anh hùng ca vĩ đại nhất của Vũ trụ Điện ảnh Marvel trên màn hình lớn IMAX Laser Hội trường A5 UTC! Cuộc đại chiến định đoạt số phận của toàn vũ trụ chống lại bạo chúa Thanos.
+      </p>
+      <div class="hero-actions">
+        <a href="booking.html?movie=avengers-endgame-encore" class="btn btn-primary">
+          <i class="fas fa-ticket-alt"></i> Đặt vé ngay
+        </a>
+        <button class="btn btn-secondary" data-trailer="TcMBFSGVi1c">
+          <i class="fas fa-play-circle"></i> Xem Trailer
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= QUICK BOOKING BAR ================= -->
+  <section class="container" style="margin-top: -30px; position: relative; z-index: 10;">
+    <div style="background: var(--bg-card); backdrop-filter: blur(16px); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 20px 28px; box-shadow: var(--shadow-lg);">
+      <form id="quick-book-form" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) auto; gap: 16px; align-items: end;">
+        <div>
+          <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">1. Chọn Phim</label>
+          <select id="quick-movie-select" class="form-select" style="margin-top: 6px;"></select>
+        </div>
+        <div>
+          <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">2. Chọn Rạp</label>
+          <select id="quick-cinema-select" class="form-select" style="margin-top: 6px;"></select>
+        </div>
+        <div>
+          <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">3. Suất Chiếu</label>
+          <select id="quick-time-select" class="form-select" style="margin-top: 6px;">
+            <option value="10:00">10:00 (Sáng)</option>
+            <option value="13:30">13:30 (Chiều)</option>
+            <option value="16:45">16:45 (Chiều)</option>
+            <option value="19:30" selected>19:30 (Tối VIP)</option>
+            <option value="21:45">21:45 (Đêm)</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="height: 48px;">
+          <i class="fas fa-bolt"></i> Mua vé nhanh
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ================= NOW SHOWING MOVIES ================= -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Phim Đang Chiếu</h2>
+          <p class="section-subtitle">Thưởng thức những siêu phẩm điện ảnh nóng nhất hiện nay</p>
+        </div>
+        <a href="movies.html" class="btn btn-secondary btn-sm">Xem tất cả <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <div class="movie-grid" id="now-showing-grid">
+        <!-- Render động từ data.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= COMING SOON MOVIES ================= -->
+  <section class="section" style="background: rgba(13, 17, 26, 0.5);">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Phim Sắp Chiếu</h2>
+          <p class="section-subtitle">Đón chờ những tác phẩm điện ảnh bom tấn sắp ra mắt</p>
+        </div>
+      </div>
+
+      <div class="movie-grid" id="coming-soon-grid">
+        <!-- Render động từ data.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CINEMA EXPERIENCE (CÔNG NGHỆ RẠP) ================= -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header" style="text-align: center; display: block; margin-bottom: 40px;">
+        <h2 class="section-title" style="justify-content: center;">Trải Nghiệm Điện Ảnh Đỉnh Cao</h2>
+        <p class="section-subtitle">Hệ thống phòng chiếu chuẩn quốc tế hiện đại bậc nhất</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+        <div style="background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 30px; text-align: center;">
+          <div style="font-size: 2.5rem; color: var(--accent-cyan); margin-bottom: 16px;"><i class="fas fa-film"></i></div>
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 10px;">IMAX Laser 4K</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Màn hình cong khổng lồ tỷ lệ mở rộng cùng độ sắc nét tuyệt hảo vượt trội chuẩn điện ảnh quốc tế.</p>
+        </div>
+        <div style="background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 30px; text-align: center;">
+          <div style="font-size: 2.5rem; color: var(--accent-gold); margin-bottom: 16px;"><i class="fas fa-volume-up"></i></div>
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 10px;">Dolby Atmos 3D Sound</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Hệ thống âm thanh vòm đa hướng 64 loa sống động, đưa bạn đắm chìm vào từng giây phút kịch tính.</p>
+        </div>
+        <div style="background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 30px; text-align: center;">
+          <div style="font-size: 2.5rem; color: var(--accent-pink); margin-bottom: 16px;"><i class="fas fa-couch"></i></div>
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 10px;">Phòng Chiếu Sweetbox & VIP</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Ghế da bọc nỉ êm ái ngả lưng cao cấp, vách ngăn riêng tư dành cho các cặp đôi và gia đình tận hưởng trọn vẹn.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROMOTIONS HIGHLIGHT ================= -->
+  <section class="section" style="background: var(--bg-primary);">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Ưu Đãi Nổi Bật</h2>
+          <p class="section-subtitle">Săn mã giảm giá và ưu đãi thành viên cực hấp dẫn</p>
+        </div>
+        <a href="promotions.html" class="btn btn-secondary btn-sm">Xem tất cả ưu đãi <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <div class="promo-grid">
+        <div class="promo-card">
+          <div>
+            <span class="promo-tag">Voucher 20%</span>
+            <h3 class="promo-title">Giảm 20% Cho Toàn Bộ Đơn Hàng</h3>
+            <p class="promo-desc">Nhập mã ưu đãi tại bước thanh toán để được giảm ngay 20% tổng hoá đơn vé và combo bắp nước.</p>
+          </div>
+          <div class="promo-code-box">
+            <span class="promo-code-text">CINE20</span>
+            <button class="copy-btn" onclick="copyPromoCode('CINE20')"><i class="fas fa-copy"></i> Sao chép</button>
+          </div>
+        </div>
+
+        <div class="promo-card">
+          <div>
+            <span class="promo-tag">HSSV 70K</span>
+            <h3 class="promo-title">Đồng Giá Vé 70K Dành Cho Học Sinh - Sinh Viên</h3>
+            <p class="promo-desc">Áp dụng từ Thứ Hai đến Thứ Sáu cho tất cả các suất chiếu 2D tiêu chuẩn.</p>
+          </div>
+          <div class="promo-code-box">
+            <span class="promo-code-text">SINHVIEN</span>
+            <button class="copy-btn" onclick="copyPromoCode('SINHVIEN')"><i class="fas fa-copy"></i> Sao chép</button>
+          </div>
+        </div>
+
+        <div class="promo-card">
+          <div>
+            <span class="promo-tag">Thành viên mới</span>
+            <h3 class="promo-title">Tặng 15.000đ Cho Lần Đặt Đầu Tiên</h3>
+            <p class="promo-desc">Đăng ký tài khoản thành viên CineVerse và đặt vé trực tuyến ngay hôm nay.</p>
+          </div>
+          <div class="promo-code-box">
+            <span class="promo-code-text">WELCOME</span>
+            <button class="copy-btn" onclick="copyPromoCode('WELCOME')"><i class="fas fa-copy"></i> Sao chép</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-col">
+          <a href="index.html" class="brand-logo" style="margin-bottom: 16px;">
+            <img src="assets/images/utc-logo.png" alt="UTC Logo" class="logo-img">
+            <span>UTC <span>CINEMA</span></span>
+          </a>
+          <p>Hệ thống rạp chiếu phim Trường Đại học Giao thông Vận tải. Mang đến không gian điện ảnh trẻ trung, hiện đại và ưu đãi đặc quyền cho sinh viên UTC.</p>
+          <p style="color: var(--accent-gold); font-weight: 700;"><i class="fas fa-map-marker-alt"></i> Số 3 Cầu Giấy, Láng Thượng, Đống Đa, Hà Nội</p>
+          <p style="color: var(--accent-gold); font-weight: 700;"><i class="fas fa-phone-alt"></i> Hotline: 024 3766 3311</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Về UTC Cinema</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Giới thiệu rạp</a></li>
+            <li><a href="movies.html">Phim đang chiếu</a></li>
+            <li><a href="schedule.html">Lịch chiếu phim</a></li>
+            <li><a href="promotions.html">Khuyến mãi & Tin tức</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Dịch vụ & Tiện ích</h4>
+          <ul class="footer-links">
+            <li><a href="booking.html">Đặt vé trực tuyến</a></li>
+            <li><a href="my-tickets.html">Tra cứu vé đã mua</a></li>
+            <li><a href="promotions.html">Quy định thành viên</a></li>
+            <li><a href="contact.html">Liên hệ hỗ trợ</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Chính Sách & Điều Khoản</h4>
+          <p>Hỗ trợ đặt vé 24/7. Hoàn huỷ vé trước 60 phút theo chính sách bảo vệ khách hàng.</p>
+          <div style="display: flex; gap: 12px; font-size: 1.25rem;">
+            <a href="#" style="color: #3b82f6;"><i class="fab fa-facebook"></i></a>
+            <a href="#" style="color: #ef4444;"><i class="fab fa-youtube"></i></a>
+            <a href="#" style="color: #ec4899;"><i class="fab fa-instagram"></i></a>
+            <a href="#" style="color: #06b6d4;"><i class="fab fa-tiktok"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 UTC Cinema - Trường Đại học Giao thông Vận tải (University of Transport and Communications).</p>
+        <p>Bài tập lớn: Thiết kế & Xây dựng Website Bán vé xem phim Hiện đại</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= POPUP MODALS ================= -->
+  <!-- 1. Trailer Modal -->
+  <div class="modal-backdrop" id="trailer-modal">
+    <div class="modal-content">
+      <button class="modal-close-btn" id="close-trailer-btn">&times;</button>
+      <div class="trailer-iframe-wrap">
+        <iframe id="trailer-iframe" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Auth Modal (Đăng nhập / Đăng ký) -->
+  <div class="modal-backdrop" id="auth-modal">
+    <div class="modal-content" style="max-width: 440px; padding: 32px;">
+      <button class="modal-close-btn" id="close-auth-btn">&times;</button>
+      <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 6px; text-align: center;">UTC CINEMA ACCOUNT</h3>
+      <p style="color: var(--text-muted); font-size: 0.88rem; text-align: center; margin-bottom: 24px;">Đăng nhập tài khoản sinh viên UTC để nhận ưu đãi vé</p>
+
+      <form id="quick-login-form">
+        <div style="margin-bottom: 16px;">
+          <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 6px;">Email hoặc Số điện thoại</label>
+          <input type="text" id="auth-email" class="form-input" placeholder="ví dụ: student@cineverse.vn" required>
+        </div>
+        <div style="margin-bottom: 24px;">
+          <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 6px;">Mật khẩu</label>
+          <input type="password" id="auth-password" class="form-input" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">
+          <i class="fas fa-sign-in-alt"></i> Đăng nhập ngay
+        </button>
+      </form>
+      <div style="margin-top: 16px; text-align: center; font-size: 0.85rem; color: var(--text-muted);">
+        Chưa có tài khoản? <a href="#" style="color: var(--primary); font-weight: 600;">Đăng ký thành viên mới</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    // Render phim vào Homepage
+    document.addEventListener('DOMContentLoaded', () => {
+      const nowGrid = document.getElementById('now-showing-grid');
+      const comingGrid = document.getElementById('coming-soon-grid');
+      const qMovie = document.getElementById('quick-movie-select');
+      const qCinema = document.getElementById('quick-cinema-select');
+
+      // Đổ option Quick Book
+      if (qMovie) {
+        qMovie.innerHTML = CineVerseData.movies
+          .filter(m => m.status === 'now_showing')
+          .map(m => `<option value="${m.id}">${m.title}</option>`).join('');
+      }
+      if (qCinema) {
+        qCinema.innerHTML = CineVerseData.cinemas
+          .map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+      }
+
+      document.getElementById('quick-book-form')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const m = qMovie.value;
+        const c = qCinema.value;
+        const t = document.getElementById('quick-time-select').value;
+        window.location.href = `booking.html?movie=${m}&cinema=${c}&time=${t}`;
+      });
+
+      // Hàm tạo card phim
+      const createMovieCard = (m) => `
+        <div class="movie-card">
+          <div class="card-poster-wrap">
+            <div class="card-badges">
+              <span class="age-tag">${m.ageRating}</span>
+              <span class="format-pill">${m.format[0]}</span>
+            </div>
+            <img src="${m.poster}" alt="${m.title}" loading="lazy">
+            <div class="card-overlay">
+              <a href="booking.html?movie=${m.id}" class="btn btn-primary btn-sm" style="width: 100%;">
+                <i class="fas fa-ticket-alt"></i> Mua Vé
+              </a>
+              <button class="btn btn-secondary btn-sm" style="width: 100%;" data-trailer="${m.trailerId}">
+                <i class="fas fa-play"></i> Trailer
+              </button>
+            </div>
+          </div>
+          <div class="card-info">
+            <div>
+              <div class="card-genres">${m.genre.join(', ')}</div>
+              <a href="movie-detail.html?id=${m.id}" class="card-title">${m.title}</a>
+            </div>
+            <div class="card-footer">
+              <div class="card-rating"><i class="fas fa-star"></i> ${m.rating}</div>
+              <span><i class="fas fa-clock"></i> ${m.duration}'</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      if (nowGrid) {
+        nowGrid.innerHTML = CineVerseData.movies
+          .filter(m => m.status === 'now_showing')
+          .map(createMovieCard).join('');
+      }
+
+      if (comingGrid) {
+        comingGrid.innerHTML = CineVerseData.movies
+          .filter(m => m.status === 'coming_soon')
+          .map(createMovieCard).join('');
+      }
+    });
+  </script>
+</body>
+</html>

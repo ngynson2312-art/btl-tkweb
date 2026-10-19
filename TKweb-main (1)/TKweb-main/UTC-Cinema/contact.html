@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liên Hệ & Hỗ Trợ - UTC Cinema</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/utc-logo.png" alt="UTC Logo" class="logo-img">
+        <span>UTC <span>CINEMA</span></span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Trang chủ</a>
+        <a href="movies.html" class="nav-link"><i class="fas fa-film"></i> Phim</a>
+        <a href="schedule.html" class="nav-link"><i class="fas fa-calendar-alt"></i> Lịch chiếu</a>
+        <a href="booking.html" class="nav-link"><i class="fas fa-ticket-alt"></i> Đặt vé</a>
+        <a href="promotions.html" class="nav-link"><i class="fas fa-tags"></i> Ưu đãi</a>
+        <a href="contact.html" class="nav-link active"><i class="fas fa-headset"></i> Liên hệ</a>
+      </nav>
+      <div class="header-actions">
+        <div id="user-header-box">
+          <button class="btn btn-secondary btn-sm open-auth-modal"><i class="fas fa-user"></i> Đăng nhập</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section style="background: var(--bg-primary); padding: 40px 0; border-bottom: 1px solid var(--border-light);">
+    <div class="container">
+      <h1 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 8px;">LIÊN HỆ & CHĂM SÓC KHÁCH HÀNG</h1>
+      <p style="color: var(--text-muted);">Chúng tôi luôn sẵn sàng lắng nghe và giải đáp mọi thắc mắc từ quý khán giả</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 50px;">
+        
+        <!-- Form gửi phản hồi -->
+        <div style="background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 32px;">
+          <h2 style="font-size: 1.4rem; font-weight: 800; color: #fff; margin-bottom: 20px;">
+            <i class="fas fa-paper-plane" style="color: var(--primary);"></i> Gửi Ý Kiến Phản Hồi
+          </h2>
+
+          <form id="contact-form">
+            <div style="margin-bottom: 16px;">
+              <label class="form-label">Họ và tên của bạn</label>
+              <input type="text" id="contact-name" class="form-input" placeholder="Nguyễn Văn A" required>
+            </div>
+            <div style="margin-bottom: 16px;">
+              <label class="form-label">Địa chỉ Email</label>
+              <input type="email" id="contact-email" class="form-input" placeholder="email@domain.com" required>
+            </div>
+            <div style="margin-bottom: 16px;">
+              <label class="form-label">Chủ đề liên hệ</label>
+              <select id="contact-subject" class="form-select">
+                <option value="ticket">Hỗ trợ vấn đề đặt vé trực tuyến</option>
+                <option value="service">Góp ý chất lượng dịch vụ rạp</option>
+                <option value="group">Đặt vé phòng chiếu sự kiện / theo đoàn</option>
+                <option value="partner">Hợp tác quảng cáo & truyền thông</option>
+              </select>
+            </div>
+            <div style="margin-bottom: 24px;">
+              <label class="form-label">Nội dung tin nhắn</label>
+              <textarea id="contact-message" class="form-input" rows="4" placeholder="Nhập chi tiết nội dung cần hỗ trợ..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              <i class="fas fa-paper-plane"></i> Gửi tin nhắn ngay
+            </button>
+          </form>
+        </div>
+
+        <!-- Thông tin chi nhánh rạp -->
+        <div>
+          <h2 style="font-size: 1.4rem; font-weight: 800; color: #fff; margin-bottom: 20px;">
+            <i class="fas fa-building" style="color: var(--primary);"></i> Hệ Thống Cụm Rạp Toàn Quốc
+          </h2>
+
+          <div style="display: flex; flex-direction: column; gap: 16px;" id="contact-cinemas-list">
+            <!-- Render từ data.js -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-bottom" style="border: none;">
+      <p>&copy; 2026 UTC Cinema - Trường Đại học Giao thông Vận tải (University of Transport and Communications).</p>
+      <a href="index.html" class="btn btn-secondary btn-sm">Quay lại trang chủ</a>
+    </div>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const listEl = document.getElementById('contact-cinemas-list');
+      if (listEl) {
+        listEl.innerHTML = CineVerseData.cinemas.map(c => `
+          <div style="background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 18px;">
+            <h4 style="color: #fff; font-size: 1.05rem; margin-bottom: 6px;">${c.name}</h4>
+            <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 6px;"><i class="fas fa-map-marker-alt" style="color: var(--primary);"></i> ${c.address}</p>
+            <div style="font-size: 0.82rem; color: var(--accent-gold);"><i class="fas fa-phone-alt"></i> Hotline: 1900 6868</div>
+          </div>
+        `).join('');
+      }
+
+      document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('contact-name').value;
+        showToast(`Cảm ơn bạn ${name}! Chúng tôi đã nhận được tin nhắn và sẽ phản hồi sớm nhất.`, 'success');
+        document.getElementById('contact-form').reset();
+      });
+    });
+  </script>
+</body>
+</html>
